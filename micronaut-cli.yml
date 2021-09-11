@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.hospital
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, assertj, data, data-jpa, gradle, h2, hamcrest, hibernate-jpa, http-client, http-session, jackson-xml, java, java-application, jdbc-hikari, junit, logback, lombok, mockito, netty-server, readme, shade, spring, spring-boot, spring-data-jpa, spring-web, yaml]
