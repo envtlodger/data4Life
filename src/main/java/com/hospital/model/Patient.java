@@ -13,11 +13,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 public class Patient {
-//    @JsonIgnore
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = {
-//            CascadeType.ALL
-//    },mappedBy = "patients")
-//    private Set<Doctor> doctors;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     private Set<Appointment> appointments;
@@ -37,5 +32,12 @@ public class Patient {
         this.age = age;
         this.gender = gender;
         this.appointments = appointments;
+    }
+
+    public Patient( String id, String name, int age, String gender) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
     }
 }

@@ -8,10 +8,11 @@ import jakarta.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -32,8 +33,8 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor1 = doctor.get();
 
         Set<Appointment> appointments = new HashSet<>();
-        for(Appointment appointment : doctor1.getAppointments()) {
-            if(appointment.getLocalDateTime().toLocalDate().isEqual(date)) {
+        for (Appointment appointment : doctor1.getAppointments()) {
+            if (appointment.getLocalDateTime().toLocalDate().isEqual(date)) {
                 appointments.add(appointment);
             }
         }
@@ -46,17 +47,17 @@ public class DoctorServiceImpl implements DoctorService {
         Optional<Doctor> doctor = doctorRepository.findByName(appointmentDTO.getDoctorName());
         Optional<Patient> patient = patientRepository.findByName(appointmentDTO.getPatientName());
 
-       // check if both have free appointments at that datetime
+        // check if both have free appointments at that datetime
         boolean isThereAppointmentForDoctorAtGivenDate = false;
         boolean isThereAppointmentForPatientAtGivenDate = false;
-        for(Appointment appointment : doctor.get().getAppointments()) {
-            if(appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
+        for (Appointment appointment : doctor.get().getAppointments()) {
+            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
                 isThereAppointmentForDoctorAtGivenDate = true;
             }
         }
 
-        for(Appointment appointment : patient.get().getAppointments()) {
-            if(appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
+        for (Appointment appointment : patient.get().getAppointments()) {
+            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
                 isThereAppointmentForPatientAtGivenDate = true;
             }
         }
@@ -75,7 +76,7 @@ public class DoctorServiceImpl implements DoctorService {
 
         String message = null;
 
-        if(!isThereAppointmentForDoctorAtGivenDate && !isThereAppointmentForPatientAtGivenDate) {
+        if (!isThereAppointmentForDoctorAtGivenDate && !isThereAppointmentForPatientAtGivenDate) {
             Appointment appointment = new Appointment(newId, appointmentDTO.getLocalDateTime());
             doctor.get().getAppointments().add(appointment);
             patient.get().getAppointments().add(appointment);
@@ -91,17 +92,22 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public ConfirmationResponseDTO cancelAppointment(AppointmentDTO appointmentDTO) {
-//        Optional<Doctor> doctor = doctorRepository.findByName(appointmentDTO.getDoctorName());
-//        Optional<Patient> patient = patientRepository.findByName(appointmentDTO.getPatientName());
+        Optional<Doctor> doctor =   doctorRepository.findByName(appointmentDTO.getDoctorName());
+        Optional<Patient> patient = patientRepository.findByName(appointmentDTO.getPatientName());
 
         String message = null;
-//       Optional<Appointment> appointment = appointmentRepository.findByDoctorIdAndPatientId(doctor.get().getId(), patient.get().getId());
-//           if(appointment.isPresent()) {
-//               appointmentRepository.delete(appointment.get());
-//               message = "deleted successfully";
-//           } else {
-//               message = "unable to delete";
-//            }
+
+        for (Appointment appointment : doctor.get().getAppointments()) {
+            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime()) && appointment.getDoctor().getName().equals(appointmentDTO.getDoctorName())
+                    && appointment.getPatient().getName().equals(appointmentDTO.getPatientName())) {
+                 appointmentRepository.delete(appointment);
+                message = "deleted successfully";
+            }
+        }
+
+        if (message == null) {
+            message = "unable to delete";
+        }
         return new ConfirmationResponseDTO(message);
     }
 

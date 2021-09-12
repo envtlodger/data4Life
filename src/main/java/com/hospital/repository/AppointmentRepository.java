@@ -14,6 +14,4 @@ import java.util.Optional;
 public interface AppointmentRepository extends CrudRepository<Appointment, String> {
 
     List<Appointment> listOrderByIdDesc();
-
-
 }

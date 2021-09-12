@@ -55,10 +55,6 @@ public class DoctorControllerTest {
 
     @Test
     void testFixAppointment() {
-        Set<Appointment> appointments = new HashSet<>();
-
-        Appointment appointment = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0));
-        Appointment appointment2 = new Appointment("A2", LocalDateTime.of(2018, 03, 8, 9, 0, 0));
 
         AppointmentDTO appointmentDTO = new AppointmentDTO("P1Name", "D1Name", LocalDateTime.of(2021, 03, 8, 9, 0, 0));
 
@@ -67,6 +63,20 @@ public class DoctorControllerTest {
         when(doctorService.fixAppointment(appointmentDTO)).thenReturn(confirmationResponseDTO);
 
         HttpResponse<ConfirmationResponseDTO> response = client.toBlocking().exchange(HttpRequest.PUT("/doctor/fix-appointments", appointmentDTO), ConfirmationResponseDTO.class);
+        Assertions.assertEquals(confirmationResponseDTO.getMessage() , response.body().getMessage());
+        Assertions.assertEquals(HttpStatus.OK, response.status());
+    }
+
+    @Test
+    void cancelAppointment() {
+
+        AppointmentDTO appointmentDTO = new AppointmentDTO("P1Name", "D1Name", LocalDateTime.of(2018, 03, 8, 9, 0, 0));
+
+        ConfirmationResponseDTO confirmationResponseDTO = new ConfirmationResponseDTO("deleted successfully");
+
+        when(doctorService.cancelAppointment(appointmentDTO)).thenReturn(confirmationResponseDTO);
+
+        HttpResponse<ConfirmationResponseDTO> response = client.toBlocking().exchange(HttpRequest.PUT("/doctor/cancel-appointments", appointmentDTO), ConfirmationResponseDTO.class);
         Assertions.assertEquals(confirmationResponseDTO.getMessage() , response.body().getMessage());
         Assertions.assertEquals(HttpStatus.OK, response.status());
     }

@@ -77,6 +77,31 @@ public class DoctorServiceTest {
         Assertions.assertTrue(confirmationResponseDTO.getMessage().equals("save successful: Appointment id: A3"));
     }
 
+    @Test
+    void cancelAppointment() {
+        Set<Appointment> appointments = new HashSet<>();
+
+
+        Appointment appointment1 = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0), new Doctor("D1", "D1Name"), new Patient( "P1", "P1Name", 12, "M"));
+        Appointment appointment2 = new Appointment("A2", LocalDateTime.of(2018, 03, 8, 10, 0, 0));
+
+        appointments.add(appointment1);
+        appointments.add(appointment2);
+
+        Doctor doctor = new Doctor("D1", "D1Name", appointments);
+        Patient patient = new Patient(appointments, "P1", "P1Name", 12, "M");
+
+        LocalDateTime localDateTime = LocalDateTime.of(2018, 03, 8, 9, 0, 0);
+
+        doReturn(Optional.of(doctor)).when(doctorRepository).findByName("D1Name");
+        doReturn(Optional.of(patient)).when(patientRepository).findByName("P1Name");
+
+        ConfirmationResponseDTO confirmationResponseDTO = doctorService.cancelAppointment(new AppointmentDTO("P1Name", "D1Name", localDateTime));
+
+        Assertions.assertEquals("deleted successfully", confirmationResponseDTO.getMessage(),"delete successful");
+
+    }
+
     @MockBean(DoctorRepository.class)
     DoctorRepository doctorRepository() {
         return mock(DoctorRepository.class);

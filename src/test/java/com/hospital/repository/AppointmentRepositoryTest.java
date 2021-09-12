@@ -2,6 +2,7 @@ package com.hospital.repository;
 
 import com.hospital.model.Appointment;
 import com.hospital.model.Doctor;
+import com.hospital.model.Patient;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,8 @@ public class AppointmentRepositoryTest {
         Appointment appointment = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0));
         Appointment appointment1 = new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0));
 
+
+
         appointmentRepository.save(appointment);
         appointmentRepository.save(appointment1);
 
@@ -39,8 +42,10 @@ public class AppointmentRepositoryTest {
 
         List<Appointment> appointmentIds = appointmentRepository.listOrderByIdDesc();
 
+
         assertSame(2, appointmentIds.size());
 
         assertSame("A2", appointmentIds.get(0).getId());
+
     }
 }

@@ -33,8 +33,8 @@ public class DoctorController {
         return HttpResponse.ok(doctorService.fixAppointment(appointmentDTO));
     }
 
-    @Put(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @Put(value = "/cancel-appointments", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public HttpResponse<ConfirmationResponseDTO> cancelAppointment(@Body AppointmentDTO appointmentDTO) {
-        return HttpResponse.ok(doctorService.fixAppointment(appointmentDTO));
+        return HttpResponse.ok(doctorService.cancelAppointment(appointmentDTO));
     }
 }
