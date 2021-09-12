@@ -22,8 +22,8 @@ public class AppointmentController {
     @Inject
     private AppointmentServiceImpl appointmentService;
 
-    @Get(value = "/{appointmentName}", produces = MediaType.APPLICATION_JSON)
-    public Set<Appointment> getAppointments(@PathVariable String appointmentName) {
-        return appointmentService.getAppointmentsByDate(appointmentName);
-    }
+//    @Get(value = "/{appointmentName}", produces = MediaType.APPLICATION_JSON)
+//    public Set<Appointment> getAppointments(@PathVariable String appointmentName) {
+//        return appointmentService.getAppointmentsByDate(appointmentName);
+//    }
 }

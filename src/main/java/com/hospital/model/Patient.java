@@ -11,22 +11,20 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Patient {
 //    @JsonIgnore
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = {
 //            CascadeType.ALL
 //    },mappedBy = "patients")
 //    private Set<Doctor> doctors;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     private Set<Appointment> appointments;
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     private String name;
 

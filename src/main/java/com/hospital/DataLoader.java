@@ -39,35 +39,21 @@ public class DataLoader implements ApplicationEventListener<ServerStartupEvent> 
     public void onApplicationEvent(ServerStartupEvent event) {
 
         if (doctorRepository.count() == 0) {
-//            Set<Patient> patients = new HashSet<>();
             Set<Appointment> appointments = new HashSet<>();
 
-            Appointment appointment1 = appointmentRepository.save(new Appointment("time year"));
-            Appointment appointment2 = appointmentRepository.save(new Appointment("Time year check"));
 
+            Appointment appointment1 = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0));
+            Appointment appointment2 = new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0));
 
-
-//                        Appointment appointment1 = appointmentRepository.save(new Appointment(LocalDateTime.of(2018, 03, 8, 9, 0, 0)));
-//            Appointment appointment2 = appointmentRepository.save(new Appointment(LocalDateTime.of(2018, 04, 8, 10, 0, 0)));
 
             appointments.add(appointment1);
             appointments.add(appointment2);
 
+            patientRepository.save(new Patient(appointments,"P1", "P1Name", 12, "M"));
+            patientRepository.save(new Patient(appointments,"P2", "P2Name", 22, "F"));
+            patientRepository.save(new Patient(appointments,"P3", "P3Name", 32, "M"));
 
-            patientRepository.save(new Patient("P1Name", 12, "M", appointments));
-            patientRepository.save(new Patient("P2Name", 22, "F", appointments));
-            patientRepository.save(new Patient("P3Name", 32, "M", appointments));
-
-//            patients.add(patient1);
-//            patients.add(patient2);
-//            patients.add(patient3);
-
-//            Appointment appointment1 = appointmentRepository.save(new Appointment(LocalDateTime.of(2018, 03, 8, 9, 0, 0)));
-//            Appointment appointment2 = appointmentRepository.save(new Appointment(LocalDateTime.of(2018, 04, 8, 10, 0, 0)));
-
-
-            doctorRepository.save(new Doctor("D1Name", appointments));
-
+            doctorRepository.save(new Doctor("D1", "D1Name", appointments));
         }
 
     }

@@ -2,24 +2,25 @@ package com.hospital.model;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Appointment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
-    private String localDateTime;
+    private LocalDateTime localDateTime;
 
     @ManyToOne
     private Doctor doctor;
@@ -27,7 +28,8 @@ public class Appointment {
     @ManyToOne
     private Patient patient;
 
-    public Appointment(String localDateTime) {
+    public Appointment(String id, LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
+        this.id = id;
     }
 }

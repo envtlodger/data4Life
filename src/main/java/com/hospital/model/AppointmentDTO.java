@@ -3,14 +3,15 @@ package com.hospital.model;
 import io.micronaut.core.annotation.Introspected;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Getter
-@ToString
+@Data
 @EqualsAndHashCode
 @Introspected
-@Setter
 public class AppointmentDTO {
-    private long id;
-    private String localDateTime;
+    private String patientName;
+    private String doctorName;
+    private LocalDateTime localDateTime;
 }

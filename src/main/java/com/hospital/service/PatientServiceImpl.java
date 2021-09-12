@@ -14,8 +14,8 @@ public class PatientServiceImpl {
     private PatientRepository patientRepository;
 
 
-    public Set<Patient> getAppointmentsByDate(String patientName) {
-        Set<Patient> patients = patientRepository.findAll();
-        return patients;
-    }
+//    public Set<Patient> getAppointmentsByDate(String patientName) {
+//        Set<Patient> patients = patientRepository.findAll();
+//        return patients;
+//    }
 }

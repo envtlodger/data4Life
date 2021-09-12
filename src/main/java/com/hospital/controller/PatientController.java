@@ -22,8 +22,8 @@ public class PatientController {
     @Inject
     private PatientServiceImpl patientService;
 
-    @Get(value = "/{patientName}", produces = MediaType.APPLICATION_JSON)
-    public Set<Patient> getAppointments(@PathVariable String patientName) {
-        return patientService.getAppointmentsByDate(patientName);
-    }
+//    @Get(value = "/{patientName}", produces = MediaType.APPLICATION_JSON)
+//    public Set<Patient> getAppointments(@PathVariable String patientName) {
+//        return patientService.getAppointmentsByDate(patientName);
+//    }
 }
