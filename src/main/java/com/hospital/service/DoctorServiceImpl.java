@@ -70,9 +70,11 @@ public class DoctorServiceImpl implements DoctorService {
         String message = "save not successful";
 
         if (!isThereAppointmentForDoctorAtTime && !isThereAppointmentForPatientAtTime) {
-            List<Appointment> appointmentIds = appointmentRepository.listOrderByIdDesc();
+            List<Appointment> appointmentIds = appointmentRepository.listOrderById();
 
             String lastAppointmentId = appointmentIds.get(appointmentIds.size() - 1).getId();
+
+            System.out.println(lastAppointmentId + " last appointment id ");
 
             int lastIndex = Integer.parseInt(lastAppointmentId.substring(1));
 

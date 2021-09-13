@@ -8,10 +8,7 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -41,16 +38,16 @@ public class AppointmentRepositoryTest {
 
         assertEquals(3, appointmentRepository.count());
 
-        List<Appointment> appointmentIds = appointmentRepository.listOrderByIdDesc();
+        List<Appointment> appointmentIds = appointmentRepository.listOrderById();
 
 
         assertSame(3, appointmentIds.size());
 
-        assertSame("A3", appointmentIds.get(0).getId());
+        assertSame("A3", appointmentIds.get(appointmentIds.size()-1).getId());
 
-        assertSame("D2", appointmentIds.get(0).getDoctorId());
+        assertSame("D2", appointmentIds.get(appointmentIds.size()-1).getDoctorId());
 
-        assertSame("P1", appointmentIds.get(0).getPatientId());
+        assertSame("P1", appointmentIds.get(appointmentIds.size()-1).getPatientId());
 
         List<Appointment> appointmentListForDoctors = appointmentRepository.findAllByDoctorId("D1");
 

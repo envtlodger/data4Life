@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public interface AppointmentRepository extends CrudRepository<Appointment, String> {
 
-    List<Appointment> listOrderByIdDesc();
+    List<Appointment> listOrderById();
 
     @Query(value = "select * from appointment a where a.doctor_Id like :doctorId",
             nativeQuery = true)

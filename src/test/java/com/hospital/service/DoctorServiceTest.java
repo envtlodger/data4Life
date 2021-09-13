@@ -73,7 +73,7 @@ public class DoctorServiceTest {
         doReturn(Optional.of(patient)).when(patientRepository).findByName("P1Name");
         doReturn(appointments).when(appointmentRepository).findAllByDoctorId("D1");
         doReturn(appointments).when(appointmentRepository).findAllByPatientId("P1");
-        doReturn(appointments).when(appointmentRepository).listOrderByIdDesc();
+        doReturn(appointments).when(appointmentRepository).listOrderById();
 
         ConfirmationResponseDTO confirmationResponseDTO = doctorService.fixAppointment(new AppointmentDTO(patient.getName(), doctor.getName(), localDateTime));
 
