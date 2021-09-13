@@ -16,16 +16,16 @@ public class Doctor {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "doctor")
-    private Set<Appointment> appointments;
+//    @OneToMany( cascade = CascadeType.ALL, mappedBy = "doctor")
+//    private Set<Appointment> appointments;
 
-    public Doctor(String name, Set<Appointment> appointments) {
-        this.name = name;
-        this.appointments = appointments;
-    }
-
-    public Doctor(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+//    public Doctor(String name, Set<Appointment> appointments) {
+//        this.name = name;
+//        this.appointments = appointments;
+//    }
+//
+//    public Doctor(String id, String name) {
+//        this.id = id;
+//        this.name = name;
+//    }
 }

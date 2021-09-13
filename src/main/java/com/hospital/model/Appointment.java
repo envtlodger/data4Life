@@ -22,11 +22,15 @@ public class Appointment {
 
     private LocalDateTime localDateTime;
 
-    @ManyToOne
-    private Doctor doctor;
+    private String doctorId;
 
-    @ManyToOne
-    private Patient patient;
+    private String patientId;
+
+//    @ManyToOne
+//    private Doctor doctor;
+//
+//    @ManyToOne
+//    private Patient patient;
 
     public Appointment(String id, LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;

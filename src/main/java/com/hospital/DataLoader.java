@@ -15,8 +15,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 /*
 On application start-up, load the entities
@@ -37,24 +35,59 @@ public class DataLoader implements ApplicationEventListener<ServerStartupEvent> 
 
     @Override
     public void onApplicationEvent(ServerStartupEvent event) {
-
-        if (doctorRepository.count() == 0) {
-            Set<Appointment> appointments = new HashSet<>();
+//        Set<Appointment> appointments = new HashSet<>();
 
 
-            Appointment appointment1 = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0));
-            Appointment appointment2 = new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0));
+        Appointment appointment1 = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0), "D1", "P1");
+        Appointment appointment2 = new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0), "D1", "P1");
+        Appointment appointment3 = new Appointment("A3", LocalDateTime.of(2018, 03, 8, 10, 0, 0), "D1", "P2");
+        Appointment appointment4 = new Appointment("A4", LocalDateTime.of(2018, 04, 8, 11, 0, 0), "D1", "P1");
+        Appointment appointment5 = new Appointment("A5", LocalDateTime.of(2018, 04, 18, 8, 0, 0), "D2", "P1");
+        Appointment appointment6 = new Appointment("A6", LocalDateTime.of(2018, 04, 18, 9, 0, 0), "D2", "P1");
+        Appointment appointment7 = new Appointment("A7", LocalDateTime.of(2018, 03, 18, 9, 0, 0), "D2", "P3");
+        Appointment appointment8 = new Appointment("A8", LocalDateTime.of(2018, 04, 18, 10, 0, 0), "D2", "P3");
 
 
-            appointments.add(appointment1);
-            appointments.add(appointment2);
+        //Appointment appointment2 = new Appointment("A2", LocalDateTime.of(2018, 03, 8, 10, 0, 0));
 
-            patientRepository.save(new Patient(appointments,"P1", "P1Name", 12, "M"));
-            patientRepository.save(new Patient(appointments,"P2", "P2Name", 22, "F"));
-            patientRepository.save(new Patient(appointments,"P3", "P3Name", 32, "M"));
+//                appointments.add(appointment1);
+//        appointments.add(appointment2);
 
-            doctorRepository.save(new Doctor("D1", "D1Name", appointments));
-        }
+        appointmentRepository.save(appointment1);
+        appointmentRepository.save(appointment2);
+        appointmentRepository.save(appointment3);
+        appointmentRepository.save(appointment4);
+        appointmentRepository.save(appointment5);
+        appointmentRepository.save(appointment6);
+        appointmentRepository.save(appointment7);
+        appointmentRepository.save(appointment8);
 
+        Doctor d1 = new Doctor("D1", "D1Name");
+        Doctor d2 = new Doctor("D2", "D2Name");
+        Doctor d3 = new Doctor("D3", "D3Name");
+
+        doctorRepository.save(d1);
+        doctorRepository.save(d2);
+        doctorRepository.save(d3);
+
+        Patient p1 = new Patient("P1", "P1Name", 12, "M");
+        Patient p2 = new Patient("P2", "P2Name", 22, "F");
+        Patient p3 = new Patient("P3", "P3Name", 32, "M");
+
+        patientRepository.save(p1);
+        patientRepository.save(p2);
+        patientRepository.save(p3);
+
+//        Doctor d1 = new Doctor("D1", "D1Name",appointments);
+//        Patient p1 = new Patient( appointments,"P1", "P1Name", 12, "M");
+//        doctorRepository.save(d1);
+//        patientRepository.save(p1);
+
+
+//        patientRepository.save(new Patient(appointments, "P1", "P1Name", 12, "M"));
+//        patientRepository.save(new Patient(appointments, "P2", "P2Name", 22, "F"));
+//        patientRepository.save(new Patient(appointments, "P3", "P3Name", 32, "M"));
+
+        //doctorRepository.save(new Doctor("D1", "D1Name", appointments));
     }
 }

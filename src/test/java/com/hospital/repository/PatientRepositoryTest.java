@@ -25,14 +25,18 @@ public class PatientRepositoryTest {
     @Test
     void testCrudOperations() {
 
-        Set<Appointment> appointments = new HashSet<>();
+//        Set<Appointment> appointments = new HashSet<>();
+//
+//        appointments.add(new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0)));
+//        appointments.add(new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0)));
 
-        appointments.add(new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0)));
-        appointments.add(new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0)));
+//        patientRepository.save(new Patient(appointments,"P1", "P1Name", 12, "M"));
+//        patientRepository.save(new Patient(appointments,"P2", "P2Name", 22, "F"));
+//        patientRepository.save(new Patient(appointments,"P3", "P3Name", 32, "M"));
 
-        patientRepository.save(new Patient(appointments,"P1", "P1Name", 12, "M"));
-        patientRepository.save(new Patient(appointments,"P2", "P2Name", 22, "F"));
-        patientRepository.save(new Patient(appointments,"P3", "P3Name", 32, "M"));
+        patientRepository.save(new Patient("P1", "P1Name", 12, "M"));
+        patientRepository.save(new Patient("P2", "P2Name", 22, "F"));
+        patientRepository.save(new Patient("P3", "P3Name", 32, "M"));
 
         assertEquals(3, patientRepository.count());
 

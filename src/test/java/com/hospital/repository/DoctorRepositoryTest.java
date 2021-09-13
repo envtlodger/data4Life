@@ -24,12 +24,15 @@ public class DoctorRepositoryTest {
     @Test
     void testCrudOperations() {
 
-        Set<Appointment> appointments = new HashSet<>();
+//        Set<Appointment> appointments = new HashSet<>();
+//
+//        appointments.add(new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0)));
+//        appointments.add(new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0)));
 
-        appointments.add(new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0)));
-        appointments.add(new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0)));
+       // Doctor doctor = new Doctor("D1", "D1Name", appointments);
 
-        Doctor doctor = new Doctor("D1", "D1Name", appointments);
+        Doctor doctor = new Doctor("D1", "D1Name");
+
 
         doctorRepository.save(doctor);
 
@@ -38,5 +41,6 @@ public class DoctorRepositoryTest {
         Optional<Doctor> doctor1 = doctorRepository.findByName("D1Name");
 
         assertSame("D1Name", doctor1.get().getName());
+        //assertSame(2, doctor1.get().getAppointments().size());
     }
 }

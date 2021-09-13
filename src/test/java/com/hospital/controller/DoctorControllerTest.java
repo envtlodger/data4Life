@@ -43,7 +43,7 @@ public class DoctorControllerTest {
         appointments.add(appointment);
         appointments.add(appointment2);
 
-        Doctor doctor = new Doctor("D1", "D1Name", appointments);
+        Doctor doctor = new Doctor("D1", "D1Name");
 
         DoctorAndDateDTO doctorAndDateDTO = new DoctorAndDateDTO(doctor.getName(), LocalDate.of(2018, 03, 8));
 

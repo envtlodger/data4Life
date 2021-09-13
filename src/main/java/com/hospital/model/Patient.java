@@ -14,10 +14,8 @@ import java.util.Set;
 @Data
 public class Patient {
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
-    private Set<Appointment> appointments;
-
-
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+//    private Set<Appointment> appointments;
     @Id
     private String id;
 
@@ -26,18 +24,18 @@ public class Patient {
     private int age;
 
     private String gender;
-
-    public Patient( String name, int age, String gender, Set<Appointment> appointments) {
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.appointments = appointments;
-    }
-
-    public Patient( String id, String name, int age, String gender) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-    }
+//
+//    public Patient( String name, int age, String gender, Set<Appointment> appointments) {
+//        this.name = name;
+//        this.age = age;
+//        this.gender = gender;
+//        this.appointments = appointments;
+//    }
+//
+//    public Patient( String id, String name, int age, String gender) {
+//        this.id = id;
+//        this.name = name;
+//        this.age = age;
+//        this.gender = gender;
+//    }
 }

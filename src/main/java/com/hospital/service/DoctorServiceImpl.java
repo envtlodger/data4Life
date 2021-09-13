@@ -29,11 +29,14 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public Set<Appointment> getAppointmentsByDoctorNameAndDate(String doctorName, LocalDate date) {
+        System.out.println(date);
+
         Optional<Doctor> doctor = doctorRepository.findByName(doctorName);
         Doctor doctor1 = doctor.get();
+        List<Appointment> appointmentsForDoctor = appointmentRepository.findAllByDoctorId(doctor.get().getId());
 
         Set<Appointment> appointments = new HashSet<>();
-        for (Appointment appointment : doctor1.getAppointments()) {
+        for (Appointment appointment : appointmentsForDoctor) {
             if (appointment.getLocalDateTime().toLocalDate().isEqual(date)) {
                 appointments.add(appointment);
             }
@@ -47,63 +50,98 @@ public class DoctorServiceImpl implements DoctorService {
         Optional<Doctor> doctor = doctorRepository.findByName(appointmentDTO.getDoctorName());
         Optional<Patient> patient = patientRepository.findByName(appointmentDTO.getPatientName());
 
-        // check if both have free appointments at that datetime
-        boolean isThereAppointmentForDoctorAtGivenDate = false;
-        boolean isThereAppointmentForPatientAtGivenDate = false;
-        for (Appointment appointment : doctor.get().getAppointments()) {
-            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
-                isThereAppointmentForDoctorAtGivenDate = true;
+        List<Appointment> getDoctorAppointments = appointmentRepository.findAllByDoctorId(doctor.get().getId());
+        List<Appointment> getPatientAppointments = appointmentRepository.findAllByPatientId(patient.get().getId());
+
+        boolean isThereAppointmentForDoctorAtTime = false;
+        boolean isThereAppointmentForPatientAtTime = false;
+        for(Appointment appointment : getDoctorAppointments) {
+            if(appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
+                isThereAppointmentForDoctorAtTime = true;
             }
         }
 
-        for (Appointment appointment : patient.get().getAppointments()) {
-            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
-                isThereAppointmentForPatientAtGivenDate = true;
+        for(Appointment appointment : getPatientAppointments) {
+            if(appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
+                isThereAppointmentForPatientAtTime = true;
             }
         }
 
-        List<Appointment> appointmentIds = appointmentRepository.listOrderByIdDesc();
+        String message =  "save not successful";;
 
-        String lastAppointmentId = appointmentIds.get(1).getId();
+        if(!isThereAppointmentForDoctorAtTime && !isThereAppointmentForPatientAtTime) {
+            List<Appointment> appointmentIds = appointmentRepository.listOrderByIdDesc();
 
-        int lastIndex = Integer.parseInt(lastAppointmentId.substring(1));
+            String lastAppointmentId = appointmentIds.get(0).getId();
 
-        int newLastIndex = ++lastIndex;
+            int lastIndex = Integer.parseInt(lastAppointmentId.substring(1));
 
-        String newLastNumber = String.valueOf(newLastIndex);
+            int newLastIndex = ++lastIndex;
 
-        String newId = "A" + newLastNumber;
+            String newLastNumber = String.valueOf(newLastIndex);
 
-        String message = null;
+            String newId = "A" + newLastNumber;
 
-        if (!isThereAppointmentForDoctorAtGivenDate && !isThereAppointmentForPatientAtGivenDate) {
-            Appointment appointment = new Appointment(newId, appointmentDTO.getLocalDateTime());
-            doctor.get().getAppointments().add(appointment);
-            patient.get().getAppointments().add(appointment);
-            doctorRepository.update(doctor.get());
-            patientRepository.update(patient.get());
-            message = "save successful: Appointment id: " + newId;
-        } else {
-            message = " save not successful";
+            appointmentRepository.save(new Appointment(newId, appointmentDTO.getLocalDateTime(), doctor.get().getId(), patient.get().getId()));
+            message = "save successful";
         }
+
+//
+//        // check if both have free appointments at that datetime
+//        boolean isThereAppointmentForDoctorAtGivenDate = false;
+//        boolean isThereAppointmentForPatientAtGivenDate = false;
+//        for (Appointment appointment : doctor.get().getAppointments()) {
+//            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
+//                isThereAppointmentForDoctorAtGivenDate = true;
+//            }
+//        }
+//
+//        for (Appointment appointment : patient.get().getAppointments()) {
+//            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime())) {
+//                isThereAppointmentForPatientAtGivenDate = true;
+//            }
+//        }
+//
+        //List<Appointment> appointmentIds = appointmentRepository.listOrderByIdDesc();
+
+//        String lastAppointmentId = appointmentIds.get(1).getId();
+//
+//        int lastIndex = Integer.parseInt(lastAppointmentId.substring(1));
+//
+//        int newLastIndex = ++lastIndex;
+//
+//        String newLastNumber = String.valueOf(newLastIndex);
+//
+//        String newId = "A" + newLastNumber;
+
+//        if (!isThereAppointmentForDoctorAtGivenDate && !isThereAppointmentForPatientAtGivenDate) {
+//            Appointment appointment = new Appointment(newId, appointmentDTO.getLocalDateTime());
+//            doctor.get().getAppointments().add(appointment);
+//            patient.get().getAppointments().add(appointment);
+//            doctorRepository.update(doctor.get());
+//            patientRepository.update(patient.get());
+//            message = "save successful: Appointment id: " + newId;
+//        } else {
+//            message = " save not successful";
+//        }
 
         return new ConfirmationResponseDTO(message);
     }
 
     @Override
     public ConfirmationResponseDTO cancelAppointment(AppointmentDTO appointmentDTO) {
-        Optional<Doctor> doctor =   doctorRepository.findByName(appointmentDTO.getDoctorName());
-        Optional<Patient> patient = patientRepository.findByName(appointmentDTO.getPatientName());
+//        Optional<Doctor> doctor =   doctorRepository.findByName(appointmentDTO.getDoctorName());
+//        Optional<Patient> patient = patientRepository.findByName(appointmentDTO.getPatientName());
 
         String message = null;
 
-        for (Appointment appointment : doctor.get().getAppointments()) {
-            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime()) && appointment.getDoctor().getName().equals(appointmentDTO.getDoctorName())
-                    && appointment.getPatient().getName().equals(appointmentDTO.getPatientName())) {
-                 appointmentRepository.delete(appointment);
-                message = "deleted successfully";
-            }
-        }
+//        for (Appointment appointment : doctor.get().getAppointments()) {
+//            if (appointment.getLocalDateTime().isEqual(appointmentDTO.getLocalDateTime()) && appointment.getDoctor().getName().equals(appointmentDTO.getDoctorName())
+//                    && appointment.getPatient().getName().equals(appointmentDTO.getPatientName())) {
+//                 appointmentRepository.delete(appointment);
+//                message = "deleted successfully";
+//            }
+//        }
 
         if (message == null) {
             message = "unable to delete";

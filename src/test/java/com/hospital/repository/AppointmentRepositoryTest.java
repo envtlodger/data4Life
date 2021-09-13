@@ -30,22 +30,34 @@ public class AppointmentRepositoryTest {
 
         Set<Appointment> appointments = new HashSet<>();
 
-        Appointment appointment = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0));
-        Appointment appointment1 = new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0));
-
+        Appointment appointment = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0), "D1", "P1");
+        Appointment appointment1 = new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0), "D1", "P1");
+        Appointment appointment2 = new Appointment("A3", LocalDateTime.of(2019, 04, 8, 10, 0, 0), "D2", "P1");
 
 
         appointmentRepository.save(appointment);
         appointmentRepository.save(appointment1);
+        appointmentRepository.save(appointment2);
 
-        assertEquals(2, appointmentRepository.count());
+        assertEquals(3, appointmentRepository.count());
 
         List<Appointment> appointmentIds = appointmentRepository.listOrderByIdDesc();
 
 
-        assertSame(2, appointmentIds.size());
+        assertSame(3, appointmentIds.size());
 
-        assertSame("A2", appointmentIds.get(0).getId());
+        assertSame("A3", appointmentIds.get(0).getId());
 
+        assertSame("D2", appointmentIds.get(0).getDoctorId());
+
+        assertSame("P1", appointmentIds.get(0).getPatientId());
+
+        List<Appointment> appointmentListForDoctors = appointmentRepository.findAllByDoctorId("D1");
+
+        List<Appointment> appointmentListForPatients = appointmentRepository.findAllByPatientId("P1");
+
+        assertSame(2, appointmentListForDoctors.size());
+
+        assertSame(3, appointmentListForPatients.size());
     }
 }
