@@ -35,9 +35,6 @@ public class DataLoader implements ApplicationEventListener<ServerStartupEvent> 
 
     @Override
     public void onApplicationEvent(ServerStartupEvent event) {
-//        Set<Appointment> appointments = new HashSet<>();
-
-
         Appointment appointment1 = new Appointment("A1", LocalDateTime.of(2018, 03, 8, 9, 0, 0), "D1", "P1");
         Appointment appointment2 = new Appointment("A2", LocalDateTime.of(2018, 04, 8, 10, 0, 0), "D1", "P1");
         Appointment appointment3 = new Appointment("A3", LocalDateTime.of(2018, 03, 8, 10, 0, 0), "D1", "P2");
@@ -47,11 +44,6 @@ public class DataLoader implements ApplicationEventListener<ServerStartupEvent> 
         Appointment appointment7 = new Appointment("A7", LocalDateTime.of(2018, 03, 18, 9, 0, 0), "D2", "P3");
         Appointment appointment8 = new Appointment("A8", LocalDateTime.of(2018, 04, 18, 10, 0, 0), "D2", "P3");
 
-
-        //Appointment appointment2 = new Appointment("A2", LocalDateTime.of(2018, 03, 8, 10, 0, 0));
-
-//                appointments.add(appointment1);
-//        appointments.add(appointment2);
 
         appointmentRepository.save(appointment1);
         appointmentRepository.save(appointment2);
@@ -77,17 +69,5 @@ public class DataLoader implements ApplicationEventListener<ServerStartupEvent> 
         patientRepository.save(p1);
         patientRepository.save(p2);
         patientRepository.save(p3);
-
-//        Doctor d1 = new Doctor("D1", "D1Name",appointments);
-//        Patient p1 = new Patient( appointments,"P1", "P1Name", 12, "M");
-//        doctorRepository.save(d1);
-//        patientRepository.save(p1);
-
-
-//        patientRepository.save(new Patient(appointments, "P1", "P1Name", 12, "M"));
-//        patientRepository.save(new Patient(appointments, "P2", "P2Name", 22, "F"));
-//        patientRepository.save(new Patient(appointments, "P3", "P3Name", 32, "M"));
-
-        //doctorRepository.save(new Doctor("D1", "D1Name", appointments));
     }
 }

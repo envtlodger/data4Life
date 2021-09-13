@@ -1,7 +1,10 @@
 package com.hospital.model;
 
 import io.micronaut.core.annotation.Introspected;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 

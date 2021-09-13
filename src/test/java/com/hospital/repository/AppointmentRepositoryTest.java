@@ -56,8 +56,12 @@ public class AppointmentRepositoryTest {
 
         List<Appointment> appointmentListForPatients = appointmentRepository.findAllByPatientId("P1");
 
+        List<Appointment> appointmentListForPatientsAndDoctors = appointmentRepository.findAllByDoctorIdAndPatientId("D1", "P1");
+
         assertSame(2, appointmentListForDoctors.size());
 
         assertSame(3, appointmentListForPatients.size());
+        assertSame(2, appointmentListForPatientsAndDoctors.size());
+
     }
 }
