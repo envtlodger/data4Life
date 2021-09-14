@@ -6,47 +6,59 @@
 - [Micronaut Guides](https://guides.micronaut.io/index.html)
 ---
 
-## Feature lombok documentation
+**Tech Stack used**
 
-- [Micronaut Project Lombok documentation](https://docs.micronaut.io/latest/guide/index.html#lombok)
+- micronaut framework
+- java 11
+- H2 inmemory database
 
-- [https://projectlombok.org/features/all](https://projectlombok.org/features/all)
+**Starting application**
 
-## Feature http-client documentation
+- go to Application.java in src/main/java/com/hospital/Application.java and run 
+  
+- csv data is preloaded in src/main/java/com/hospital/DataLoader.java upon application startup
 
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
 
-## Feature assertj documentation
 
-- [https://assertj.github.io/doc/](https://assertj.github.io/doc/)
 
-## Feature hibernate-jpa documentation
 
-- [Micronaut Hibernate JPA documentation](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#hibernate)
+EndPoints:
 
-## Feature http-session documentation
+1)Get all appointments for the given doctor & date:
+(localhostport)/doctor/get-appointments
 
-- [Micronaut HTTP Sessions documentation](https://docs.micronaut.io/latest/guide/index.html#sessions)
+sample json:
+{
+"doctorName": "D1Name",
+"date": "2018-03-08"
+}
 
-## Feature jackson-xml documentation
 
-- [Micronaut Jackson XML serialization/deserialization documentation](https://micronaut-projects.github.io/micronaut-jackson-xml/latest/guide/index.html)
 
-- [https://github.com/FasterXML/jackson-dataformat-xml](https://github.com/FasterXML/jackson-dataformat-xml)
 
-## Feature jdbc-hikari documentation
+2)Fix appointment by patient, doctor and date & time:
+(localhostport)/doctor/fix-appointments
 
-- [Micronaut Hikari JDBC Connection Pool documentation](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#jdbc)
+sample json:
+{
+"patientName": "P1Name",
+"doctorName": "D1Name",
+"localDateTime": "2032-03-08T09:00:00"
+}
 
-## Feature hamcrest documentation
 
-- [https://hamcrest.org/JavaHamcrest/](https://hamcrest.org/JavaHamcrest/)
 
-## Feature spring documentation
+3)Cancel appointment by patient, doctor and date & time:
+(localhostport)/doctor/cancel-appointments
 
-- [Micronaut Spring Framework Annotations documentation](https://micronaut-projects.github.io/micronaut-spring/latest/guide/index.html)
+sample json:
+{
+"patientName": "P1Name",
+"doctorName": "D1Name",
+"localDateTime": "2018-03-08T09:00:00"
+}
 
-## Feature mockito documentation
 
-- [https://site.mockito.org](https://site.mockito.org)
+
+
 
