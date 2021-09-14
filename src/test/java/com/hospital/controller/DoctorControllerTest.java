@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +48,7 @@ public class DoctorControllerTest {
 
         when(doctorService.getAppointmentsByDoctorNameAndDate(doctor.getName(), LocalDate.of(2018, 03, 8))).thenReturn(appointments);
         HttpResponse<Appointment[]> response = client.toBlocking().exchange(HttpRequest.POST("/doctor/get-appointments", doctorAndDateDTO), Appointment[].class);
-        Assertions.assertEquals(appointments.size(),response.body().length);
+        Assertions.assertEquals(appointments.size(), response.body().length);
         Assertions.assertEquals(HttpStatus.OK, response.status());
     }
 
@@ -63,7 +62,7 @@ public class DoctorControllerTest {
         when(doctorService.fixAppointment(appointmentDTO)).thenReturn(confirmationResponseDTO);
 
         HttpResponse<ConfirmationResponseDTO> response = client.toBlocking().exchange(HttpRequest.PUT("/doctor/fix-appointments", appointmentDTO), ConfirmationResponseDTO.class);
-        Assertions.assertEquals(confirmationResponseDTO.getMessage() , response.body().getMessage());
+        Assertions.assertEquals(confirmationResponseDTO.getMessage(), response.body().getMessage());
         Assertions.assertEquals(HttpStatus.OK, response.status());
     }
 
@@ -77,7 +76,7 @@ public class DoctorControllerTest {
         when(doctorService.cancelAppointment(appointmentDTO)).thenReturn(confirmationResponseDTO);
 
         HttpResponse<ConfirmationResponseDTO> response = client.toBlocking().exchange(HttpRequest.PUT("/doctor/cancel-appointments", appointmentDTO), ConfirmationResponseDTO.class);
-        Assertions.assertEquals(confirmationResponseDTO.getMessage() , response.body().getMessage());
+        Assertions.assertEquals(confirmationResponseDTO.getMessage(), response.body().getMessage());
         Assertions.assertEquals(HttpStatus.OK, response.status());
     }
 

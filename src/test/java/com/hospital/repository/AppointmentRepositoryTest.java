@@ -1,21 +1,20 @@
 package com.hospital.repository;
 
 import com.hospital.model.Appointment;
-import com.hospital.model.Doctor;
-import com.hospital.model.Patient;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 @MicronautTest
 public class AppointmentRepositoryTest {
-
 
 
     @Inject
@@ -43,11 +42,11 @@ public class AppointmentRepositoryTest {
 
         assertSame(3, appointmentIds.size());
 
-        assertSame("A3", appointmentIds.get(appointmentIds.size()-1).getId());
+        assertSame("A3", appointmentIds.get(appointmentIds.size() - 1).getId());
 
-        assertSame("D2", appointmentIds.get(appointmentIds.size()-1).getDoctorId());
+        assertSame("D2", appointmentIds.get(appointmentIds.size() - 1).getDoctorId());
 
-        assertSame("P1", appointmentIds.get(appointmentIds.size()-1).getPatientId());
+        assertSame("P1", appointmentIds.get(appointmentIds.size() - 1).getPatientId());
 
         List<Appointment> appointmentListForDoctors = appointmentRepository.findAllByDoctorId("D1");
 

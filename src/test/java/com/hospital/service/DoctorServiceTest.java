@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -49,7 +52,7 @@ public class DoctorServiceTest {
 
         Set<Appointment> appointmentsOutcome = doctorService.getAppointmentsByDoctorNameAndDate(doctor.getName(), LocalDate.of(2018, 03, 8));
 
-        Assertions.assertEquals(2,appointmentsOutcome.size());
+        Assertions.assertEquals(2, appointmentsOutcome.size());
     }
 
 
@@ -65,7 +68,7 @@ public class DoctorServiceTest {
 
         Doctor doctor = new Doctor("D1", "D1Name");
 
-        Patient patient = new Patient( "P1", "P1Name", 12, "M");
+        Patient patient = new Patient("P1", "P1Name", 12, "M");
 
         LocalDateTime localDateTime = LocalDateTime.of(2020, 10, 9, 9, 0, 0);
 
@@ -77,7 +80,7 @@ public class DoctorServiceTest {
 
         ConfirmationResponseDTO confirmationResponseDTO = doctorService.fixAppointment(new AppointmentDTO(patient.getName(), doctor.getName(), localDateTime));
 
-        Assertions.assertEquals("save successful: Appointment id: A3", confirmationResponseDTO.getMessage(),"save successful: Appointment id: A3");
+        Assertions.assertEquals("save successful: Appointment id: A3", confirmationResponseDTO.getMessage(), "save successful: Appointment id: A3");
     }
 
     @Test
@@ -92,7 +95,7 @@ public class DoctorServiceTest {
 
         Doctor doctor = new Doctor("D1", "D1Name");
 
-        Patient patient = new Patient( "P1", "P1Name", 12, "M");
+        Patient patient = new Patient("P1", "P1Name", 12, "M");
 
         LocalDateTime localDateTime = LocalDateTime.of(2018, 03, 8, 9, 0, 0);
 
@@ -103,7 +106,7 @@ public class DoctorServiceTest {
 
         ConfirmationResponseDTO confirmationResponseDTO = doctorService.cancelAppointment(new AppointmentDTO("P1Name", "D1Name", localDateTime));
 
-        Assertions.assertEquals("deleted successfully", confirmationResponseDTO.getMessage(),"delete successful");
+        Assertions.assertEquals("deleted successfully", confirmationResponseDTO.getMessage(), "delete successful");
 
     }
 
@@ -112,19 +115,14 @@ public class DoctorServiceTest {
         return mock(DoctorRepository.class);
     }
 
-    ;
-
     @MockBean(PatientRepository.class)
     PatientRepository patientRepository() {
         return mock(PatientRepository.class);
     }
-
-    ;
 
     @MockBean(AppointmentRepository.class)
     AppointmentRepository appointmentRepository() {
         return mock(AppointmentRepository.class);
     }
 
-    ;
 }
