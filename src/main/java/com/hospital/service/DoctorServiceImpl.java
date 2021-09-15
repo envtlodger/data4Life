@@ -1,5 +1,6 @@
 package com.hospital.service;
 
+import com.hospital.Utils;
 import com.hospital.model.*;
 import com.hospital.repository.AppointmentRepository;
 import com.hospital.repository.DoctorRepository;
@@ -29,8 +30,6 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public Set<Appointment> getAppointmentsByDoctorNameAndDate(String doctorName, LocalDate date) {
-        System.out.println(date);
-
         Optional<Doctor> doctor = doctorRepository.findByName(doctorName);
         Doctor doctor1 = doctor.get();
         List<Appointment> appointmentsForDoctor = appointmentRepository.findAllByDoctorId(doctor.get().getId());
@@ -69,21 +68,9 @@ public class DoctorServiceImpl implements DoctorService {
 
         String message = "save not successful";
 
-        if (!isThereAppointmentForDoctorAtTime && !isThereAppointmentForPatientAtTime) {
+        if (!isThereAppointmentForDoctorAtTime && !isThereAppointmentForPatientAtTime && Utils.checkIfTimeWithinRange(appointmentDTO.getLocalDateTime())) {
             List<Appointment> appointmentIds = appointmentRepository.listOrderById();
-
-            String lastAppointmentId = appointmentIds.get(appointmentIds.size() - 1).getId();
-
-            System.out.println(lastAppointmentId + " last appointment id ");
-
-            int lastIndex = Integer.parseInt(lastAppointmentId.substring(1));
-
-            int newLastIndex = ++lastIndex;
-
-            String newLastNumber = String.valueOf(newLastIndex);
-
-            String newId = "A" + newLastNumber;
-
+            String newId = Utils.createNewId(appointmentIds);
             appointmentRepository.save(new Appointment(newId, appointmentDTO.getLocalDateTime(), doctor.get().getId(), patient.get().getId()));
             message = "save successful: Appointment id: " + newId;
         }
